@@ -11,13 +11,13 @@
     const password = ref("");
     const confirmPassword = ref("");
     const isSex = ref("");
-    const isAge = ref();
-    const isHight = ref();
-    const isWeight = ref();
+    const isAge = ref("");
+    const isHight = ref("");
+    const isWeight = ref("");
     const isExcercise = ref("");
     const isTarget = ref("");
     const isMeal = ref("");
-    const optionCal = ref();
+    const optionCal = ref("");
     const isError = ref("");
 
     const haddleNextPages = () => {
@@ -35,9 +35,10 @@
     }
 
     const haddleSubmitCreate = async () => {
-        if(isSex.value !== "" || (isAge.value) || (isHight.value) || (isWeight.value) || isExcercise.value !== "" || isTarget.value !== "" || isMeal.value !== ""){
-            isError.value("sex, age, hight, weight, excercise, target, meal cannot be empty")
-        }else{
+        // if(isSex.value !== "" && isAge.value !== "" && isHight.value !== "" && isWeight.value !== "" && isExcercise.value !== "" && isTarget.value !== "" && isMeal.value !== ""){
+        //     isError.value = "sex, age, hight, weight, excercise, target, meal cannot be empty"
+        //     alert(isError.value)
+        // }else{
             const payload = {
                 Username: username.value,
                 Password: password.value,
@@ -48,7 +49,7 @@
                 Excercise: isExcercise.value,
                 Target: isTarget.value,
                 Meal: isMeal.value,
-                TargetCal: optionCal.value? optionCal.value: "n/a"
+                TargetCal: optionCal.value? optionCal.value: 0
             }
             try{
                 await axios.post("https://service-register-login-nya5fszoda-as.a.run.app/api/register", payload)
@@ -57,7 +58,7 @@
             }catch(err){
                 alert(err)
             }
-        }
+        // }
     }
 
 

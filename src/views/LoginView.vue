@@ -1,5 +1,10 @@
 <script setup>
+    import { useRouter } from 'vue-router'; 
 
+    const router = useRouter();
+    const haddleRouterPage = () => {
+        router.push({path: "/register"})
+    }
 </script>
 
 <template>
@@ -15,7 +20,7 @@
                 <button class="border-[1px] border-gray-600 text-[13px] font-bold w-[150px] rounded-md text-white bg-gray-600">Login</button>
             </div>
             <div class="mt-5 text-right text-[10px] text-blue-800 font-bold">
-                <button>Create username</button>
+                <button @click="haddleRouterPage">Create username</button>
             </div>
         </div>
     </div>

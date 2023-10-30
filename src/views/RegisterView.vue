@@ -1,5 +1,9 @@
 <script setup>
     import {ref} from "vue";
+    import { useRouter } from 'vue-router'; 
+    import axios from "axios";
+
+    const router = useRouter();
 
     const isPage = ref(1);
 
@@ -7,7 +11,7 @@
     const password = ref("");
     const confirmPassword = ref("");
     const isSex = ref("");
-    const isAge = ref("");
+    const isAge = ref();
     const isHight = ref();
     const isWeight = ref();
     const isExcercise = ref("");
@@ -31,16 +35,29 @@
     }
 
     const haddleSubmitCreate = async () => {
-        console.log(username.value)
-        console.log(password.value)
-        console.log(isSex.value)
-        console.log(isAge.value)
-        console.log(isHight.value)
-        console.log(isWeight.value)
-        console.log(isExcercise.value)
-        console.log(isTarget.value)
-        console.log(isMeal.value)
-        console.log(optionCal.value)
+        if(isSex.value !== "" || (isAge.value) || (isHight.value) || (isWeight.value) || isExcercise.value !== "" || isTarget.value !== "" || isMeal.value !== ""){
+            isError.value("sex, age, hight, weight, excercise, target, meal cannot be empty")
+        }else{
+            const payload = {
+                Username: username.value,
+                Password: password.value,
+                Sex: isSex.value,
+                Age: isAge.value,
+                Height: isHight.value,
+                Weight: isWeight.value,
+                Excercise: isExcercise.value,
+                Target: isTarget.value,
+                Meal: isMeal.value,
+                TargetCal: optionCal.value? optionCal.value: "n/a"
+            }
+            try{
+                await axios.post("https://service-register-login-nya5fszoda-as.a.run.app/api/register", payload)
+                alert("Create profile success.")
+                router.push({path:"/login"})
+            }catch(err){
+                alert(err)
+            }
+        }
     }
 
 

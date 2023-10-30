@@ -1,16 +1,16 @@
 <script setup>
-import { RouterLink } from 'vue-router'
-import {ref} from "vue";
+    import { RouterLink } from 'vue-router'
+    import {ref} from "vue";
 
-const cssNavBar = ref("c-navbar")
+    const cssNavBar = ref("c-navbar")
 
-const haddleCloseBar = (evt) => {
-    if(evt === "close"){
-        cssNavBar.value = "c-navbar-c"
-    }else{
-        cssNavBar.value = "c-navbar"
+    const haddleCloseBar = (evt) => {
+        if(evt === "close"){
+            cssNavBar.value = "c-navbar-c"
+        }else{
+            cssNavBar.value = "c-navbar"
+        }
     }
-}
 
 </script>
 
@@ -29,7 +29,7 @@ const haddleCloseBar = (evt) => {
             </button>
         </div>
         <div class="c-nutrition pt-10 ml-4" v-if="cssNavBar === 'c-navbar'">
-            <RouterLink class="flex" to="/"> 
+            <RouterLink class="flex" to="/nutrition"> 
                 <div>
                     <svg class="c-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
                         <path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clip-rule="evenodd" />
@@ -42,7 +42,7 @@ const haddleCloseBar = (evt) => {
             </RouterLink>
         </div>
         <div class="c-chatbot mt-10 ml-4" v-if="cssNavBar === 'c-navbar'">
-            <RouterLink class="flex" to="/">
+            <RouterLink class="flex" to="/chatbot">
                 <div>
                     <svg class="c-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
                         <path fill-rule="evenodd" d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 003.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 01-.814 1.686.75.75 0 00.44 1.223zM8.25 10.875a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25zM10.875 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875-1.125a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25z" clip-rule="evenodd" />

@@ -14,5 +14,6 @@ export default createStore({
         isSodium: "",
         isOptimalNutrition: "",
         isProduct: [],
+        publicURL: "https://storage.googleapis.com/optimization_bucket_nindo_1/"
     }
 })

@@ -4,6 +4,7 @@ export default createStore({
     state:{
         isLoading: false,
         isPopup: false,
+        isPopupNutrition: false,
         isCal: "",
         isCarb: "",
         isCholesterol: "",
@@ -11,5 +12,7 @@ export default createStore({
         isProtien: "",
         isServing: "",
         isSodium: "",
+        isOptimalNutrition: "",
+        isProduct: [],
     }
 })

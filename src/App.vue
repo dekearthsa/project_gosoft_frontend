@@ -3,6 +3,8 @@ import { RouterView } from 'vue-router'
 import Navbar from './components/navbar/Navbar.vue';
 import OnloadVue from "./components/Onload.vue";
 import Popup from "./components/Popup.vue";
+import PopupOptimal from './components/PopupOptimal.vue';
+
 import { useStore } from 'vuex'
 const store = useStore();
 
@@ -12,6 +14,7 @@ const store = useStore();
   <div class="onloading" v-if="store.state.isLoading === true">
     <OnloadVue class="isloading"/>
   </div>
+  <PopupOptimal v-if="store.state.isPopupNutrition === true"/>
   <Popup v-if="store.state.isPopup === true"/>
   <div class="c-container">
     <div>

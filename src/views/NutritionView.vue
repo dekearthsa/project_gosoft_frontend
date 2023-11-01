@@ -53,7 +53,7 @@
 <template>
     
     <div class="c-container-n">
-        <div class="c-title ">Nutrition</div>
+        <div class="c-title mt-5 mb-5">Nutrition</div>
         <div class="mt-10">
             <div class="mb-5" v-if="imgUrl !== ''">
                 <img :src="imgUrl" width="240" height="240"/>

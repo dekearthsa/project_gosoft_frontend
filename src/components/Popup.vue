@@ -8,7 +8,7 @@
         store.state.isPopup = false
     }
 
-
+    
 </script>
 
 

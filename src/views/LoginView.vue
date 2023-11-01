@@ -56,7 +56,7 @@
 </script>
 
 <template>
-    <div class="c-login ">
+    <div class="c-login">
         <div v-if="isToken === ''">
             <div class="">
                 <div>Username</div>

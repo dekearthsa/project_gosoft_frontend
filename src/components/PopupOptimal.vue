@@ -37,7 +37,7 @@
                 <div class="c-card" v-for="(el, idx) in store.state.isProduct" :key="idx">
                     <div class="font-bold" >{{ el.brand }}</div>
                     <div>
-                        <img class="img-thum" :src="store.state.publicUR+el.image_url" width="120" height="120"/>
+                        <img class="img-thum" :src="store.state.publicURL+el.image_url" width="120" height="120"/>
                     </div>
                     <div class="name-desc">{{el.name}}</div>
                     <div class="font-bold text-left ml-4 mt-3">Nutrition</div>

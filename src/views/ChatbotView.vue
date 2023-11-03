@@ -38,6 +38,7 @@
             query: isText.value,
             user_private_data: payloadProfile.value
         })
+        console.log(data)
 
 
         let config = {
@@ -55,7 +56,7 @@
         
         try{
             const response = await axios.request(config)
-            // console.log(response.data.str_result)
+            console.log(response.data)
             arrayText.value.push({bot:response.data.response})
             if(response.data.str_result.optimal_nutrition !== undefined){
                 store.state.isOptimalNutrition = response.data.str_result.optimal_nutrition

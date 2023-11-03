@@ -90,8 +90,8 @@
 @media not all and (min-width: 768px){
     .c-login{
         padding-top: 30vh;
-        margin-left: 25%;
-        width: 100%;
+        width: 200px;
+        margin: auto;
     }
 }
 

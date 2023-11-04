@@ -1,12 +1,12 @@
 <script setup>
-    import {ref} from "vue";
     import { useStore } from 'vuex'
 
     const store = useStore();
     
     const haddleClosePopup = () => {
         store.state.isPopupNutrition = false
-    }   
+    }
+
 </script>
 
 <template>
@@ -33,13 +33,17 @@
                 </div>
             </div>
             <div class="mt-5 font-bold">Product recommend</div>
-            <div class="mt-5"> 
+            <div class="c-control-card mt-5"> 
                 <div class="c-card" v-for="(el, idx) in store.state.isProduct" :key="idx">
                     <div class="font-bold" >{{ el.brand }}</div>
                     <div>
-                        <img class="img-thum" :src="store.state.publicURL+el.image_url" width="120" height="120"/>
+                        <img class="img-thum m-auto" :src="store.state.publicURL+el.image_url" width="120" height="120"/>
                     </div>
                     <div class="name-desc">{{el.name}}</div>
+                    <div class="c-price flex mt-3">
+                        <div class="font-bold">Price</div>
+                        <div class="ml-5">{{ el.price}} USD</div>
+                    </div>
                     <div class="font-bold text-left ml-4 mt-3">Nutrition</div>
                     <div class="c-nutr">
                         <div>
@@ -57,6 +61,7 @@
                             <div>{{el.nutrition_summarize.sodium_mg.toFixed(1)}}</div>
                         </div>
                     </div>
+                    <div class="pb-4"></div>
                 </div>
             </div> 
         </div>
@@ -66,6 +71,52 @@
 <style scoped>
 .img-thum{
     border-radius: 10px;
+}
+
+@media (min-width: 768px){
+    .pop-up-c{
+        position: fixed;
+        z-index: 999;
+        height: 80vh;
+        width: 90%;
+        background-color: white;
+        border: 1px solid gray;
+        border-radius: 10px;
+        top: 5%;
+        left: 7%;
+        overflow-y: scroll;
+    }
+    .set-desc{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .c-price{
+        margin-left: 15px;
+    }
+
+    .c-control-card{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .c-card{
+        border: 1px solid grey;
+        width: 380px;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        height: 400px;
+        border-radius: 10px;
+        overflow-y: scroll;
+    }
+
+    .c-nutr{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        overflow-y: scroll;
+    }
+
 }
 
 @media not all and (min-width: 768px){
@@ -86,6 +137,10 @@
         grid-template-columns: 1fr 1fr;
     }
 
+    .c-price{
+        margin-left: 15px;
+    }
+
     .c-card{
         border: 1px solid grey;
         width: 280px;
@@ -94,6 +149,7 @@
         margin-bottom: 20px;
         height: 300px;
         border-radius: 10px;
+        overflow-y: scroll;
     }
 
     .c-nutr{

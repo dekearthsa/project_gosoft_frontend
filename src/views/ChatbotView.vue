@@ -56,13 +56,10 @@
         
         try{
             const response = await axios.request(config)
-            console.log(response.data)
             arrayText.value.push({bot:response.data.response})
             if(response.data.str_result.optimal_nutrition !== undefined){
                 store.state.isOptimalNutrition = response.data.str_result.optimal_nutrition
                 store.state.isProduct = response.data.str_result.products
-                console.log(response.data.str_result)
-                console.log(store.state.isProduct)
             }
             // console.log(arrayText.value)
             isTyping.value = false
@@ -92,10 +89,10 @@
             <div class="c-box" >
                 <div v-for="(el,idx) in arrayText" :key="idx">
                     <div class="flex justify-start ml-3 mt-2">
-                        <div class="w-[90%]">{{el.bot}}</div>
+                        <div class="c-bot">{{el.bot}}</div>
                     </div>
                     <div class="flex justify-end mr-3">
-                        <div class="w-[70%] text-right font-bold">{{el.user}}</div>
+                        <div class="c-user w-[70%] text-right font-bold">{{el.user}}</div>
                     </div>
                 </div>
             </div>
@@ -138,8 +135,47 @@
 }
 
 
+@media (min-width: 768px){
+    .c-bot{
+        width: 70%;
+    }
+    .c-box{
+
+        overflow-y: scroll;
+        height: 70vh;
+        border: 1px solid gray;
+        width: 90%;
+        margin: auto;
+        border-radius: 10px;
+    }
+    .c-typing{
+        padding-top: 20px;
+        margin: auto;
+        text-align: center;
+        width: 90%;
+        height: 40px;
+    }
+
+    input{
+        width: 500px;
+        border: 1px solid gray;
+        border-radius: 10px;
+    }
+
+    .btn-send{
+        margin-left: 10px;
+    }
+
+    .set-result{
+        text-align: center;
+    }
+}
+
 
 @media not all and (min-width: 768px){
+    .c-bot{
+        width: 90%;
+    }
     .c-box{
 
         overflow-y: scroll;

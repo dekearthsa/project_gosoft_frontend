@@ -77,6 +77,51 @@
 
 <style scoped>
 
+@media (min-width: 768px){
+    .c-title{
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .c-login{
+        margin: auto;
+        text-align: center;
+    }
+
+    .custom-file-input {
+        font-size: 12px;
+    }
+
+    img{
+        margin: auto
+    }
+    .select-img{
+        font-size: 12px;
+        margin-top: 170px;
+        text-align: center;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+    .custom-file-upload {
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: center;
+        width: 400px;
+        height: 40vh;
+        border-radius: 10px;
+        margin: auto;
+    }
+    .c-desc{
+        margin: auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        width: 120px;
+     
+    }
+}
+
 @media not all and (min-width: 768px){
     .c-title{
         font-size: 14px;

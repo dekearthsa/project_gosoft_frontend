@@ -3,9 +3,11 @@
     import {ref, onMounted} from "vue";
     import axios from "axios";
     import VueCookies from 'vue-cookies'
+    import { useStore } from 'vuex'
 
 
     const router = useRouter();
+    const store = useStore();
 
     const username = ref("");
     const password = ref("");
@@ -25,10 +27,12 @@
             const haddleLogin = await axios.post("https://service-register-login-nya5fszoda-as.a.run.app/api/login", payload);
             VueCookies.set("setDataGosoft",haddleLogin.data);
             // console.log(haddleLogin.data)
+            store.state.loginContent = "Profile"
             router.push({path: "/nutrition"})
         }catch(err){
             console.log(err)
             alert(err)
+            store.state.loginContent = "login"
             VueCookies.remove("setDataGosoft",haddleLogin.data.token);
             username.value = ""
             password.value = ""
@@ -45,8 +49,13 @@
     }
 
     const haddleLogout = async () => {
+        store.state.loginContent = "login"
         await VueCookies.remove("setDataGosoft")
         location.reload();
+    }
+
+    const haddleUpdate = () => {
+        router.push({path: "/update"})
     }
 
     onMounted(() => {
@@ -77,8 +86,10 @@
             <div>
                 <div> Welcome...</div>
                 <div>you are already login. </div>
-                <div class="mt-5">
-                    <button @click="haddleLogout" class="border-[1px] border-gray-600 text-[13px] font-bold w-[100px] rounded-md text-white bg-gray-600">Logout</button>
+                
+                <div class="flex justify-around mt-5">
+                    <button @click="haddleUpdate" class="border-[1px] border-gray-600 text-[13px] font-bold w-[80px] rounded-md text-white bg-gray-600">Update</button>
+                    <button @click="haddleLogout" class="border-[1px] border-gray-600 text-[13px] font-bold w-[80px] rounded-md text-white bg-gray-600">Logout</button>
                 </div>
             </div>
         </div>

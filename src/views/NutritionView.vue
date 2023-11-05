@@ -1,15 +1,43 @@
 <script setup>
-    import {ref} from "vue";
+    import {ref, onMounted} from "vue";
     import axios from "axios";
-    
+    import VueCookies from 'vue-cookies'
     import { useStore } from 'vuex'
+    import { useRouter } from 'vue-router'; 
+
     const store = useStore();
     const imgUrl = ref("");
+    const router = useRouter();
 
     const haddleOpenPopup = () => {
         store.state.isPopup = true
     }
- 
+
+    const haddleAuth = async () => {
+        const getToken = await VueCookies.get("setDataGosoft");
+        // console.log(getToken.token)
+        try{
+            if(getToken.token){
+                const headerConfig = {
+                    headers: {
+                        Authorization: getToken.token
+                    }
+                }
+                const auth = await axios.get(store.state.checkAuthURL, headerConfig)
+                // console.log(auth.data)
+                if (!auth.data.login) {
+                        VueCookies.remove("setDataGosoft",haddleLogin.data.token);
+                        router.push({path: "/login"})
+                    }
+            }else{
+                router.push({path: "/login"})
+            }
+        }catch(err){
+            console.log(err)
+            router.push({path: "/login"})
+        }
+    }
+
     // const onloading = ref(false)
     const upload = async (event) => {
         store.state.isLoading = true
@@ -43,10 +71,11 @@
             console.log(err)
             store.state.isLoading = false
         }
-        
-        
     }
 
+    onMounted(() => {
+        haddleAuth()
+    })
 
 </script>
 

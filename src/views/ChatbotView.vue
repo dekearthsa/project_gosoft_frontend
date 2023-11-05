@@ -3,19 +3,49 @@
     import VueCookies from 'vue-cookies'
     import {ref, onMounted} from "vue";
     import axios from 'axios';
-
+    import { useRouter } from 'vue-router'; 
     import { useStore } from 'vuex'
 
     const store = useStore();
+    const router = useRouter();
 
     const payloadProfile = ref()
     const isText = ref();
     const arrayText = ref([]);
     const isTyping = ref(false);
 
+    const haddleAuth = async () => {
+        const getToken = await VueCookies.get("setDataGosoft");
+        
+        try{
+            if(getToken.token){
+                    let config = {
+                        method: 'get',
+                        url: 'https://service-register-login-nya5fszoda-as.a.run.app/api/check/auth',
+                        headers: { 
+                            "Authorization": getToken.token
+                        }
+                    };
+                    const auth = await axios.request(config)
+                    console.log(auth.data)
+                    if (!auth.data.login) {
+                        VueCookies.remove("setDataGosoft");
+                        router.push({path: "/login"})
+                    }
+            }else{
+                VueCookies.remove("setDataGosoft");
+                router.push({path: "/login"})
+            }
+        }catch(err){
+            console.log(err)
+            router.push({path: "/login"})
+        }
+    }
+
     const haddleProfile = () => {
         const profileData = VueCookies.get("setDataGosoft");
-        const payload = {
+        try{
+            const payload = {
             age: Number(profileData.age),
             gender: profileData.sex,
             height: Number(profileData.height),
@@ -25,9 +55,13 @@
             meal: profileData.meal,
             cal_need: Number(profileData.targetCal),
             cal_dec: profileData.targetCal?"Y":"N"
+            }
+            payloadProfile.value = payload
+            console.log(payloadProfile)
+        }catch(err){
+            router.push({path: "/login"})
         }
-        payloadProfile.value = payload
-        console.log(payloadProfile)
+        
     }
 
     const haddleSend = async() => {
@@ -36,7 +70,7 @@
             session_state_responses: [],
             session_state_request: [],
             query: isText.value,
-            user_private_data: payloadProfile.value
+            user_private_data: payloadProfile.value,
         })
         console.log(data)
 
@@ -76,6 +110,7 @@
     }
 
     onMounted(() => {
+        haddleAuth();
         haddleProfile();
     })
 

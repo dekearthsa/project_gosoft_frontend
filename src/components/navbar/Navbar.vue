@@ -1,8 +1,13 @@
 <script setup>
-    import { RouterLink } from 'vue-router'
-    import {ref} from "vue";
+    // import { RouterLink } from 'vue-router'
+    import { useRouter } from 'vue-router'; 
+    import {ref, computed, onUpdated} from "vue";
+    // import VueCookies from 'vue-cookies'
+    import { useStore } from 'vuex'
 
     const cssNavBar = ref("c-navbar")
+    const store = useStore();
+    const router = useRouter();
 
     const haddleCloseBar = (evt) => {
         if(evt === "close"){
@@ -11,6 +16,25 @@
             cssNavBar.value = "c-navbar"
         }
     }
+
+    const haddleRoute = (evt) => {
+        if(evt === "nutrition"){
+            router.push({path:"/nutrition"})
+        }else if(evt === "chatbot"){
+            router.push({path:"/chatbot"})
+        }else if(evt === "login"){
+            router.push({path:"/login"})
+        }
+    }
+
+    // const islogin = computed(  () => {
+    //     const getToken =  VueCookies.get("setDataGosoft")
+    //     if(getToken){
+    //         return "Profile"
+    //     }else{
+    //         return "login"
+    //     }
+    // })
 
 </script>
 
@@ -29,7 +53,7 @@
             </button>
         </div>
         <div class="c-nutrition pt-10 ml-4" v-if="cssNavBar === 'c-navbar'">
-            <RouterLink class="flex" to="/nutrition"> 
+            <button @click="haddleRoute('nutrition')" class="flex" > 
                 <div>
                     <svg class="c-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
                         <path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clip-rule="evenodd" />
@@ -39,30 +63,30 @@
                 <div>
                     Nutrition
                 </div>
-            </RouterLink>
+            </button >
         </div>
         <div class="c-chatbot mt-10 ml-4" v-if="cssNavBar === 'c-navbar'">
-            <RouterLink class="flex" to="/chatbot">
+            <button @click="haddleRoute('chatbot')" class="flex">
                 <div>
                     <svg class="c-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
                         <path fill-rule="evenodd" d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 003.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 01-.814 1.686.75.75 0 00.44 1.223zM8.25 10.875a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25zM10.875 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875-1.125a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25z" clip-rule="evenodd" />
                     </svg>
                 </div>
                 <div>Chatbot</div>
-            </RouterLink>
+            </button >
         </div>
         <div class="c-login mt-[60vh]" v-if="cssNavBar === 'c-navbar'">
             <div class="">
-                <RouterLink class="flex justify-center" to="/login">
+                <button @click="haddleRoute('login')" class="flex  m-auto" >
                     <div class="">
                         <svg class="c-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
                             <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd" />
                         </svg>
                     </div>
                     <div>
-                        Login
+                        {{ store.state.loginContent }}
                     </div>
-                </RouterLink>
+                </button>
             </div>
         </div>
         

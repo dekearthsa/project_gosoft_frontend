@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import NutritionView from '../views/NutritionView.vue'
 import ChatbotView from '../views/ChatbotView.vue'
+import UpdateView from '../views/UpdateView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/chatbot',
       name: 'chatbot',
       component: ChatbotView
+    },
+    {
+      path: '/update',
+      name: 'update',
+      component: UpdateView
     }
   ]
 })

@@ -14,7 +14,9 @@ export default createStore({
         isSodium: "",
         isOptimalNutrition: "",
         isProduct: [],
-        publicURL: "https://storage.googleapis.com/optimization_bucket_nindo_1/"
+        loginContent: "login",
+        publicURL: "https://storage.googleapis.com/optimization_bucket_nindo_1/",
+        checkAuthURL: "https://service-register-login-nya5fszoda-as.a.run.app/api/check/auth"
     }
 })
 

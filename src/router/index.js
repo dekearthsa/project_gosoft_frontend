@@ -5,6 +5,8 @@ import RegisterView from '../views/RegisterView.vue'
 import NutritionView from '../views/NutritionView.vue'
 import ChatbotView from '../views/ChatbotView.vue'
 import UpdateView from '../views/UpdateView.vue'
+import ChangeBodyView from "../views/ChangeBodyView.vue"
+import ChnagePasswordView from "../views/ChangePasswordView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +40,16 @@ const router = createRouter({
       path: '/update',
       name: 'update',
       component: UpdateView
+    },
+    {
+      path: '/update/changebody',
+      name: 'changebody',
+      component: ChangeBodyView
+    },
+    {
+      path: '/update/changepassword',
+      name: 'changepassword',
+      component: ChnagePasswordView
     }
   ]
 })

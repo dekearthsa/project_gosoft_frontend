@@ -2,7 +2,8 @@
     import {ref, onMounted} from "vue";
     import { useRouter } from 'vue-router'; 
     import VueCookies from 'vue-cookies'
-import axios from "axios";
+    import axios from "axios";
+    
     const router = useRouter();
 
     const password = ref("");

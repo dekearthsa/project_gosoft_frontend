@@ -2,8 +2,11 @@
     import {ref, onMounted} from "vue";
     import { useRouter } from 'vue-router'; 
     import VueCookies from 'vue-cookies'
+    import axios from "axios";
 
+    // https://service-register-login-nya5fszoda-as.a.run.app/api/update/profile // 
     const router = useRouter();
+
     const weight = ref();
     const age = ref();
     const excercise = ref();
@@ -12,13 +15,41 @@
     const sex = ref();
     const target = ref();
     const targetCal = ref();
+    const errorText = ref("");
 
     const haddleBack = () => {
         router.push({path: "/update"})
     }
 
-    const haddleUpdate = () => {
-        
+    const haddleUpdate = async () => {
+        if(weight.value !== undefined && age.value !== undefined && excercise.value !== undefined && height.value !== undefined && meal.value !== undefined && sex.value !== undefined && target !== undefined && targetCal !== undefined){
+            try{
+                const isUser = await VueCookies.get("setDataGosoft")
+                const payload = {
+                    Username: isUser.Username,
+                    Sex: sex.value,
+                    Age: age.value,
+                    Height: height.value,
+                    Weight: weight.value,
+                    Excercise: excercise.value,
+                    Target: target.value,
+                    Meal: meal.value,
+                    TargetCal: targetCal.value
+                }
+                const result = await axios.post("https://service-register-login-nya5fszoda-as.a.run.app/api/update/profile", payload)
+                if(result.data.status === "ok"){
+                    alert("update sucess.");
+                    location.reload();
+                }else{
+                    alert("update fail.")
+                }
+            }catch(err){
+                alert(err)
+            }
+            
+        }else{
+            errorText.value = "weight, age, excercise, height, meal, sex, target, target cal, cannot be empty"
+        }
     }
 
 
@@ -143,6 +174,9 @@
         <div class="flex">
             <button @click="haddleBack" class="mt-10 w-[100px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">Back</button>
             <button @click="haddleUpdate"   class="mt-10 ml-5 w-[100px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">Submit</button>
+        </div>
+        <div class="m-auto text-center text-red-700 font-bold">
+            {{ errorText }}
         </div>
     </div>
 </template>

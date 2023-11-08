@@ -12,7 +12,16 @@
     const payloadProfile = ref()
     const isText = ref();
     const arrayText = ref([]);
+    const negativeWord = ref("");
+    const arrayOfNegative = ref([]);
     const isTyping = ref(false);
+
+    const haddleAddingNegative = () => {
+        arrayOfNegative.value.push(negativeWord.value)
+        negativeWord.value = ""
+        console.log(arrayOfNegative.value)
+    }
+
 
     const haddleAuth = async () => {
         const getToken = await VueCookies.get("setDataGosoft");
@@ -131,11 +140,19 @@
                     </div>
                 </div>
             </div>
+            <div class="mt-5 text-center">
+                <input v-model="negativeWord"  list="ingre"  id="ingres" placeholder="negative promp">
+                <datalist id="ingre">
+                    <option v-for="(el, idx) in store.state.propmt" :key="idx" :value="el">{{el}}</option>
+                </datalist>
+                <button  @click="haddleAddingNegative" class="btn-send w-[50px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">add</button>
+            </div>
             <div class="c-typing">
-                <input v-if="isTyping === false" v-model="isText"/>
+                <input v-if="isTyping === false" v-model="isText" placeholder="tpying message"/>
                 <button v-if="isTyping === false" @click="haddleSend" class="btn-send w-[50px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">send</button>
                 <div class="loader m-auto" v-if="isTyping === true"></div>
             </div>
+            
             <div class="set-result mt-10" v-if="store.state.isProduct.length !== 0 ">
                 <button  @click="haddlerShowResult" class="w-[100px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">Result</button>
             </div>
@@ -145,6 +162,10 @@
 
 
 <style scoped>
+::placeholder {
+    text-align: center; 
+ }
+
 .loader,
 .loader:before,
 .loader:after {
@@ -194,7 +215,7 @@
     input{
         width: 500px;
         border: 1px solid gray;
-        border-radius: 10px;
+        border-radius: 4px;
     }
 
     .btn-send{
@@ -231,7 +252,7 @@
 
     input{
         border: 1px solid gray;
-        border-radius: 10px;
+        border-radius: 4px;
     }
 
     .btn-send{

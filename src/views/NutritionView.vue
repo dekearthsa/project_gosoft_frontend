@@ -7,6 +7,8 @@
 
     const store = useStore();
     const imgUrl = ref("");
+    const evtStore = ref();
+    const isResult = ref(false);
     const router = useRouter();
 
     const haddleOpenPopup = () => {
@@ -40,11 +42,20 @@
 
     // const onloading = ref(false)
     const upload = async (event) => {
-        store.state.isLoading = true
-        let formData = new FormData();
-        formData.append("image", event.target.files[0]);
+        
+        // let formData = new FormData();
+        evtStore.value = event
         const createUrl = URL.createObjectURL(event.target.files[0]);
         imgUrl.value = createUrl
+        
+    }
+
+    const haddleSendImg = async () => {
+        store.state.isLoading = true
+        let formData = new FormData();
+        formData.append("image", evtStore.value.target.files[0]);
+        // formData.append("image", event.target.files[0]);
+        
         try{
             const result = await axios.post(
                 "https://us-central1-nindocnx.cloudfunctions.net/image_inference",
@@ -55,7 +66,7 @@
                     }
                 }   
             )
-            
+            isResult.value = true
             store.state.isCal = result.data.cal
             store.state.isCarb = result.data.carb
             store.state.isCholesterol = result.data.cholesterol
@@ -67,6 +78,7 @@
             // console.log(result.data)
             store.state.isLoading = false
         }catch(err){
+            isResult.value = false
             alert(err)
             console.log(err)
             store.state.isLoading = false
@@ -93,9 +105,11 @@
                     <div class="select-img">Upload image</div>
                 </label>
             </div>
-                
+            <div class="c-btn-send mt-10 text-center">
+                <button @click="haddleSendImg" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold">Send</button>
+            </div>
         </div>
-        <div class="c-desc" v-if="imgUrl !== ''">
+        <div class="c-desc" v-if="isResult === true">
             <div class="btn-upload ">
                 <button @click="haddleOpenPopup" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold ">Result</button>
             </div>

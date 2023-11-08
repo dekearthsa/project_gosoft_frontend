@@ -1,11 +1,12 @@
 <script setup>
     // import { RouterLink } from 'vue-router'
     import { useRouter } from 'vue-router'; 
-    import {ref, computed, onUpdated} from "vue";
-    // import VueCookies from 'vue-cookies'
+    import {ref, onMounted,computed, onUpdated} from "vue";
+    import VueCookies from 'vue-cookies'
     import { useStore } from 'vuex'
 
     const cssNavBar = ref("c-navbar")
+    const isMenuLogin = ref("login")
     const store = useStore();
     const router = useRouter();
 
@@ -26,6 +27,38 @@
             router.push({path:"/login"})
         }
     }
+
+    onMounted(() => {
+        const getToken =  VueCookies.get("setDataGosoft")
+        try{
+            if(getToken.token){
+                // isMenuLogin.value = "Profile"
+                store.state.loginContent = "Profile"
+            }else{
+                // isMenuLogin.value = "Login"
+                store.state.loginContent = "Login"
+            }
+        }catch(err){
+            // isMenuLogin.value = "Login"
+            store.state.loginContent = "Login"
+        }
+    })
+
+    onUpdated(() => {
+        const getToken =  VueCookies.get("setDataGosoft")
+        try{
+            if(getToken.token){
+                // isMenuLogin.value = "Profile"
+                store.state.loginContent = "Profile"
+            }else{
+                // isMenuLogin.value = "Login"
+                store.state.loginContent = "Login"
+            }
+        }catch(err){
+            // isMenuLogin.value = "Login"
+            store.state.loginContent = "Login"
+        }
+    })
 
     // const islogin = computed(  () => {
     //     const getToken =  VueCookies.get("setDataGosoft")

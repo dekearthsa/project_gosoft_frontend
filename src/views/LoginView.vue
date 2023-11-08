@@ -30,7 +30,7 @@
             store.state.loginContent = "Profile"
             router.push({path: "/nutrition"})
         }catch(err){
-            console.log(err)
+            // console.log(err)
             alert(err)
             store.state.loginContent = "login"
             VueCookies.remove("setDataGosoft",haddleLogin.data.token);

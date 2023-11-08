@@ -24,9 +24,9 @@
     const haddleUpdate = async () => {
         if(weight.value !== undefined && age.value !== undefined && excercise.value !== undefined && height.value !== undefined && meal.value !== undefined && sex.value !== undefined && target !== undefined && targetCal !== undefined){
             try{
-                const isUser = await VueCookies.get("setDataGosoft")
+                const isProfile = await VueCookies.get("setDataGosoft")
                 const payload = {
-                    Username: isUser.Username,
+                    Username: isProfile.Username,
                     Sex: sex.value,
                     Age: age.value,
                     Height: height.value,
@@ -38,6 +38,22 @@
                 }
                 const result = await axios.post("https://service-register-login-nya5fszoda-as.a.run.app/api/update/profile", payload)
                 if(result.data.status === "ok"){
+
+                    const setCookies = {
+                        Username: isProfile.Username,
+                        sex: sex.value,
+                        age: age.value,
+                        height: height.value,
+                        Weight: weight.value,
+                        excercise: excercise.value,
+                        target: target.value,
+                        meal: meal.value,
+                        targetCal: targetCal.value,
+                        token: isProfile.token,
+                    }
+
+                    VueCookies.set("setDataGosoft",setCookies);
+                    
                     alert("update sucess.");
                     location.reload();
                 }else{

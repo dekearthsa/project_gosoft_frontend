@@ -1,7 +1,7 @@
 
 <script setup>
     import VueCookies from 'vue-cookies'
-    import {ref, onMounted} from "vue";
+    import {ref, onMounted }from "vue";
     import axios from 'axios';
     import { useRouter } from 'vue-router'; 
     import { useStore } from 'vuex'
@@ -79,11 +79,13 @@
             session_state_responses: [],
             session_state_request: [],
             query: isText.value,
+            filter_ingredient: arrayOfNegative.value,
             user_private_data: payloadProfile.value,
         })
         console.log(data)
 
 
+        
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
@@ -128,8 +130,12 @@
 
 <template>
     <div>
-        <div class="title text-center mt-5 mb-5">Chatbot</div>
-        <div>
+        <div class="c-title m-auto ">
+            <div class="pt-10">
+                Chatbot
+            </div>
+        </div>
+        <div class="mt-10">
             <div class="c-box" >
                 <div v-for="(el,idx) in arrayText" :key="idx">
                     <div class="flex justify-start ml-3 mt-2">
@@ -141,11 +147,14 @@
                 </div>
             </div>
             <div class="mt-5 text-center">
-                <input v-model="negativeWord"  list="ingre"  id="ingres" placeholder="negative promp">
+                <input v-model="negativeWord"  list="ingre"  id="ingres" placeholder="Filter ingredient">
                 <datalist id="ingre">
                     <option v-for="(el, idx) in store.state.propmt" :key="idx" :value="el">{{el}}</option>
                 </datalist>
                 <button  @click="haddleAddingNegative" class="btn-send w-[50px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">add</button>
+                <div >
+                    <span class="ml-1" v-for="(el, idx) in arrayOfNegative" :key="idx">{{el}}</span>
+                </div>
             </div>
             <div class="c-typing">
                 <input v-if="isTyping === false" v-model="isText" placeholder="tpying message"/>
@@ -192,6 +201,19 @@
 
 
 @media (min-width: 768px){
+    .c-title{
+        width: 90%;
+        margin: auto;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        height: 90px;
+        background: rgb(47, 47, 47);
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    }
     .c-bot{
         width: 70%;
     }
@@ -229,6 +251,18 @@
 
 
 @media not all and (min-width: 768px){
+    .c-title{
+        width: 90%;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        height: 90px;
+        background: rgb(47, 47, 47);
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    }
     .c-bot{
         width: 90%;
     }

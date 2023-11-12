@@ -11,17 +11,20 @@ const store = useStore();
 </script>
 
 <template>
-  <div class="onloading" v-if="store.state.isLoading === true">
-    <OnloadVue class="isloading"/>
-  </div>
-  <PopupOptimal v-if="store.state.isPopupNutrition === true"/>
-  <Popup v-if="store.state.isPopup === true"/>
-  <div class="c-container">
-    <div>
-      <Navbar/>
+  <div >
+    <div class="onloading" v-if="store.state.isLoading === true">
+      <OnloadVue class="isloading"/>
     </div>
-      <RouterView class="c-view-p" />
+    <PopupOptimal v-if="store.state.isPopupNutrition === true"/>
+    <Popup v-if="store.state.isPopup === true"/>
+    <div class="c-container">
+      <div>
+        <Navbar/>
+      </div>
+        <RouterView class="c-view-p" />
+    </div>
   </div>
+  
 </template>
 
 <style scoped>
@@ -49,11 +52,13 @@ body{
 
 .c-container{
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 100fr;
 }
 
 .c-view-p{
   height: 100vh;
   overflow-y: scroll;
+  background: rgb(255,255,255);
+  background: linear-gradient(162deg, rgba(255,255,255,1) 60%, rgba(151,205,255,1) 81%, rgba(85,117,145,1) 90%, rgba(68,95,122,1) 100%);
 }
 </style>

@@ -92,28 +92,32 @@
 </script>
 
 <template>
-    
-    <div class="c-container-n">
-        <div class="c-title mt-5 mb-5">Nutrition</div>
-        <div class="mt-10">
-            <div class="mb-5" v-if="imgUrl !== ''">
-                <img :src="imgUrl" width="240" height="240"/>
+    <div >
+        <div class="c-title h-[90px]">
+            <div class="pt-10 font-bold ">Nutrition</div>
+        </div>
+        <div class="set-nutriton">
+            <div class="mt-10">
+                <div class="mb-5" v-if="imgUrl !== ''">
+                    <img class="m-auto rounded-md" :src="imgUrl" width="240" height="240"/>
+                </div>
+                <div class="c-file m-auto text-center">
+                    <label class="custom-file-upload">
+                        <input type="file" @change="upload($event)" id="file-input"/>
+                        <div class="select-img">Upload image</div>
+                    </label>
+                </div>
+                <div class="c-btn-send mt-10 m-auto text-center">
+                    <button @click="haddleSendImg" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold">Send</button>
+                </div>
             </div>
-            <div class="c-file">
-                <label class="custom-file-upload">
-                    <input type="file" @change="upload($event)" id="file-input"/>
-                    <div class="select-img">Upload image</div>
-                </label>
-            </div>
-            <div class="c-btn-send mt-10 text-center">
-                <button @click="haddleSendImg" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold">Send</button>
+            <div class="c-desc" v-if="isResult === true">
+                <div class="btn-upload ">
+                    <button @click="haddleOpenPopup" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold ">Result</button>
+                </div>
             </div>
         </div>
-        <div class="c-desc" v-if="isResult === true">
-            <div class="btn-upload ">
-                <button @click="haddleOpenPopup" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold ">Result</button>
-            </div>
-        </div>
+        
     </div>
     
 </template>
@@ -121,6 +125,20 @@
 <style scoped>
 
 @media (min-width: 768px){
+
+    .c-title{
+        width: 90%;
+        margin: auto;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        background: rgb(47, 47, 47);
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    }
+
     .c-title{
         font-weight: bold;
         text-align: center;
@@ -135,9 +153,7 @@
         font-size: 12px;
     }
 
-    img{
-        margin: auto
-    }
+
     .select-img{
         font-size: 12px;
         margin-top: 170px;
@@ -167,9 +183,16 @@
 
 @media not all and (min-width: 768px){
     .c-title{
+        width: 90%;
+        margin: auto;
         font-size: 14px;
         font-weight: bold;
         text-align: center;
+        color: white;
+        background: rgb(47, 47, 47);
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
     }
 
     .c-container-n{

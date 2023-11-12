@@ -133,7 +133,7 @@
         font-weight: bold;
         text-align: center;
         color: white;
-        background: rgb(47, 47, 47);
+        background: rgb(39, 45, 56);
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
@@ -189,7 +189,7 @@
         font-weight: bold;
         text-align: center;
         color: white;
-        background: rgb(47, 47, 47);
+        background: rgb(39, 45, 56);
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;

@@ -138,12 +138,15 @@
         <div class="mt-10">
             <div class="c-box" >
                 <div v-for="(el,idx) in arrayText" :key="idx">
-                    <div class="flex justify-start ml-3 mt-2">
-                        <div class="c-bot">{{el.bot}}</div>
+                    <div class="flex justify-start ml-3 mt-2 w-[50%]">
+                        <div class="ai-bubble text-white">{{el.bot}}</div>
                     </div>
-                    <div class="flex justify-end mr-3">
-                        <div class="c-user w-[70%] text-right font-bold">{{el.user}}</div>
+                    <div class="">
+                        <div class="flex justify-end mr-3 ">
+                            <div class="text-white  text-right font-bold speech-bubble">{{el.user}}</div>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
             <div class="mt-5 text-center">
@@ -171,6 +174,23 @@
 
 
 <style scoped>
+
+.speech-bubble {
+ 
+	background: #9b8d59;
+	border-radius: .4em;
+}
+
+ 
+
+.ai-bubble {
+	position: relative;
+	background: #00aabb;
+	border-radius: .4em;
+}
+ 
+
+
 ::placeholder {
     text-align: center; 
  }
@@ -252,13 +272,13 @@
 
 @media not all and (min-width: 768px){
     .c-title{
+        background: rgb(39, 45, 56);
         width: 90%;
         font-size: 14px;
         font-weight: bold;
         text-align: center;
         color: white;
         height: 90px;
-        background: rgb(47, 47, 47);
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;

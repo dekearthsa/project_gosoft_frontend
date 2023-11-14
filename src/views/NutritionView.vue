@@ -36,6 +36,7 @@
             }
         }catch(err){
             console.log(err)
+            VueCookies.remove("setDataGosoft");
             router.push({path: "/login"})
         }
     }
@@ -97,25 +98,45 @@
             <div class="pt-10 font-bold ">Nutrition</div>
         </div>
         <div class="set-nutriton">
-            <div class="mt-10">
-                <div class="mb-5" v-if="imgUrl !== ''">
-                    <img class="m-auto rounded-md" :src="imgUrl" width="240" height="240"/>
-                </div>
-                <div class="c-file m-auto text-center">
-                    <label class="custom-file-upload">
-                        <input type="file" @change="upload($event)" id="file-input"/>
-                        <div class="select-img">Upload image</div>
-                    </label>
+            <div class="mt-[100px]">
+                <div class="set-c-img">
+                    <div class="mb-5" >
+                        <img  v-if="imgUrl !== ''" class="m-auto rounded-md" :src="imgUrl" width="240" height="240"/>
+                        <div v-if="imgUrl === ''"  class="set-blank-img" >
+                            <div class="text-center mt-[170px]">
+                                No image found
+                            </div>
+                        </div>
+                    </div>
+                    <div class="c-file m-auto text-center">
+                        <label class="custom-file-upload">
+                            <input type="file" @change="upload($event)" id="file-input"/>
+                            
+                            <div class="select-img">
+                                <div>
+                                    Upload image
+                                </div>
+                                <div class="text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-center m-auto mt-3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12l-3-3m0 0l-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                    </svg>
+                                </div>
+                                
+                            </div>
+                        </label>
+                    </div>
                 </div>
                 <div class="c-btn-send mt-10 m-auto text-center">
-                    <button @click="haddleSendImg" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold">Send</button>
+                    <div>
+                        <button @click="haddleSendImg" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold">Send</button>
+                    </div>
+                    
+                    <div class="c-desc" v-if="isResult === true">
+                            <button @click="haddleOpenPopup" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold ">Result</button>
+                    </div>
                 </div>
             </div>
-            <div class="c-desc" v-if="isResult === true">
-                <div class="btn-upload ">
-                    <button @click="haddleOpenPopup" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold ">Result</button>
-                </div>
-            </div>
+            
         </div>
         
     </div>
@@ -125,6 +146,19 @@
 <style scoped>
 
 @media (min-width: 768px){
+
+    .set-c-img{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .set-blank-img{
+        margin: auto;
+        width: 370px;
+        height: 370px;
+        border: 1px solid gray;
+        border-radius: 10px;
+    }
 
     .c-title{
         width: 90%;
@@ -155,7 +189,6 @@
 
 
     .select-img{
-        font-size: 12px;
         margin-top: 170px;
         text-align: center;
     }
@@ -172,12 +205,10 @@
         border-radius: 10px;
         margin: auto;
     }
-    .c-desc{
-        margin: auto;
-        margin-top: 40px;
-        margin-bottom: 40px;
-        width: 120px;
-     
+
+    .c-btn-send{
+        display: flex;
+        justify-content: space-around;
     }
 }
 

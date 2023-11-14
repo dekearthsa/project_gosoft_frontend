@@ -47,6 +47,7 @@
             }
         }catch(err){
             console.log(err)
+            VueCookies.remove("setDataGosoft");
             router.push({path: "/login"})
         }
     }
@@ -229,7 +230,7 @@
         text-align: center;
         color: white;
         height: 90px;
-        background: rgb(47, 47, 47);
+        background: rgb(39, 45, 56);
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;

@@ -28,7 +28,7 @@
             VueCookies.set("setDataGosoft",haddleLogin.data);
             // console.log(haddleLogin.data)
             store.state.loginContent = "Profile"
-            router.push({path: "/nutrition"})
+            router.push({path: "/"})
         }catch(err){
             // console.log(err)
             alert(err)

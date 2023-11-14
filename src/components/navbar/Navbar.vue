@@ -9,6 +9,7 @@
     const cssSelectionHome = ref("is-menu-selected");
     const cssSelectionNutrition = ref("is-menu-none-select");
     const cssSelectionChatbot = ref("is-menu-none-select");
+    const cssSelectionLogin = ref("is-menu-none-select")
     // const isMenuLogin = ref("login")
     const store = useStore();
     const router = useRouter();
@@ -26,18 +27,25 @@
             cssSelectionHome.value = "is-menu-none-select"
             cssSelectionNutrition.value = "is-menu-selected"
             cssSelectionChatbot.value = "is-menu-none-select"
+            cssSelectionLogin.value = "is-menu-none-select"
             router.push({path:"/nutrition"})
         }else if(evt === "chatbot"){
             cssSelectionHome.value = "is-menu-none-select"
             cssSelectionNutrition.value = "is-menu-none-select"
             cssSelectionChatbot.value = "is-menu-selected"
+            cssSelectionLogin.value = "is-menu-none-select"
             router.push({path:"/chatbot"})
         }else if(evt === "login"){
+            cssSelectionHome.value = "is-menu-none-select"
+            cssSelectionNutrition.value = "is-menu-none-select"
+            cssSelectionChatbot.value = "is-menu-none-select"
+            cssSelectionLogin.value = "is-menu-selected"
             router.push({path:"/login"})
         }else if(evt === "home"){
             cssSelectionHome.value = "is-menu-selected"
             cssSelectionNutrition.value = "is-menu-none-select"
             cssSelectionChatbot.value = "is-menu-none-select"
+            cssSelectionLogin.value = "is-menu-none-select"
             router.push({path:"/"})
         }
     }
@@ -130,9 +138,10 @@
                 </div>
             </button >
         </div>
-        <div class="c-login mt-[60vh]" v-if="cssNavBar === 'c-navbar'">
-            <div class="">
-                <button @click="haddleRoute('login')" class="flex  m-auto" >
+        <div class="c-login mt-[50vh]" v-if="cssNavBar === 'c-navbar'">
+            <div :class="cssSelectionLogin">
+                <button @click="haddleRoute('login')" class="flex  m-auto pt-2  " >
+                    
                     <div class="">
                         <svg class="c-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
                             <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd" />
@@ -160,11 +169,12 @@
 }
 
 .is-menu-none-select{
-    background: rgb(28, 37, 49);
+    background: rgb(31, 41, 54);
     height: 40px;
     margin-left: 15px;
     margin-top: 30px;
 }
+ 
 
 @media not all and (min-width: 768px){
     .c-navbar{

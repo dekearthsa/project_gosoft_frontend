@@ -15,6 +15,12 @@ export default createStore({
         isOptimalNutrition: "",
         isProduct: [],
         loginContent: "login",
+        cssSelectionHome: "is-menu-selected",
+        cssSelectionNutrition: "is-menu-none-select",
+        cssSelectionChatbot: "is-menu-none-select",
+        cssSelectionLogin: "is-menu-none-select",
+        cssSelectionFilter: "is-menu-none-select",
+        arrayOfNegative: [],
         publicURL: "https://storage.googleapis.com/optimization_bucket_nindo_1/",
         checkAuthURL: "https://service-register-login-nya5fszoda-as.a.run.app/api/check/auth",
         propmt: [

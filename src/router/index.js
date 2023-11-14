@@ -7,6 +7,7 @@ import ChatbotView from '../views/ChatbotView.vue'
 import UpdateView from '../views/UpdateView.vue'
 import ChangeBodyView from "../views/ChangeBodyView.vue"
 import ChnagePasswordView from "../views/ChangePasswordView.vue"
+import FilterView from "../views/FilterView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/update/changepassword',
       name: 'changepassword',
       component: ChnagePasswordView
+    },
+    {
+      path: '/filter',
+      name: 'filter',
+      component: FilterView
     }
   ]
 })

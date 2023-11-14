@@ -6,10 +6,11 @@
     import { useStore } from 'vuex'
 
     const cssNavBar = ref("c-navbar")
-    const cssSelectionHome = ref("is-menu-selected");
-    const cssSelectionNutrition = ref("is-menu-none-select");
-    const cssSelectionChatbot = ref("is-menu-none-select");
-    const cssSelectionLogin = ref("is-menu-none-select")
+    // const cssSelectionHome = ref("is-menu-selected");
+    // const cssSelectionNutrition = ref("is-menu-none-select");
+    // const cssSelectionChatbot = ref("is-menu-none-select");
+    // const cssSelectionLogin = ref("is-menu-none-select");
+    // const cssSelectionFilter = ref("is-menu-none-select");
     // const isMenuLogin = ref("login")
     const store = useStore();
     const router = useRouter();
@@ -24,29 +25,40 @@
 
     const haddleRoute = (evt) => {
         if(evt === "nutrition"){
-            cssSelectionHome.value = "is-menu-none-select"
-            cssSelectionNutrition.value = "is-menu-selected"
-            cssSelectionChatbot.value = "is-menu-none-select"
-            cssSelectionLogin.value = "is-menu-none-select"
+            store.state.cssSelectionHome = "is-menu-none-select"
+            store.state.cssSelectionNutrition = "is-menu-selected"
+            store.state.cssSelectionChatbot = "is-menu-none-select"
+            store.state.cssSelectionLogin = "is-menu-none-select"
+            store.state.cssSelectionFilter = "is-menu-none-select"
             router.push({path:"/nutrition"})
         }else if(evt === "chatbot"){
-            cssSelectionHome.value = "is-menu-none-select"
-            cssSelectionNutrition.value = "is-menu-none-select"
-            cssSelectionChatbot.value = "is-menu-selected"
-            cssSelectionLogin.value = "is-menu-none-select"
+            store.state.cssSelectionHome = "is-menu-none-select"
+            store.state.cssSelectionNutrition = "is-menu-none-select"
+            store.state.cssSelectionChatbot = "is-menu-selected"
+            store.state.cssSelectionLogin = "is-menu-none-select"
+            store.state.cssSelectionFilter = "is-menu-none-select"
             router.push({path:"/chatbot"})
         }else if(evt === "login"){
-            cssSelectionHome.value = "is-menu-none-select"
-            cssSelectionNutrition.value = "is-menu-none-select"
-            cssSelectionChatbot.value = "is-menu-none-select"
-            cssSelectionLogin.value = "is-menu-selected"
+            store.state.cssSelectionHome = "is-menu-none-select"
+            store.state.cssSelectionNutrition = "is-menu-none-select"
+            store.state.cssSelectionChatbot = "is-menu-none-select"
+            store.state.cssSelectionLogin = "is-menu-selected"
+            store.state.cssSelectionFilter = "is-menu-none-select"
             router.push({path:"/login"})
         }else if(evt === "home"){
-            cssSelectionHome.value = "is-menu-selected"
-            cssSelectionNutrition.value = "is-menu-none-select"
-            cssSelectionChatbot.value = "is-menu-none-select"
-            cssSelectionLogin.value = "is-menu-none-select"
+            store.state.cssSelectionHome = "is-menu-selected"
+            store.state.cssSelectionNutrition = "is-menu-none-select"
+            store.state.cssSelectionChatbot = "is-menu-none-select"
+            store.state.cssSelectionLogin = "is-menu-none-select"
+            store.state.cssSelectionFilter = "is-menu-none-select"
             router.push({path:"/"})
+        }else if(evt === "filter"){
+            store.state.cssSelectionHome = "is-menu-none-select"
+            store.state.cssSelectionNutrition = "is-menu-none-select"
+            store.state.cssSelectionChatbot = "is-menu-none-select"
+            store.state.cssSelectionLogin = "is-menu-none-select"
+            store.state.cssSelectionFilter = "is-menu-selected"
+            router.push({path:"/filter"})
         }
     }
 
@@ -100,7 +112,7 @@
                 </svg>
             </button>
         </div>
-        <div :class="cssSelectionHome" v-if="cssNavBar === 'c-navbar'">
+        <div :class="store.state.cssSelectionHome" v-if="cssNavBar === 'c-navbar'">
             <button @click="haddleRoute('home')" class="flex" > 
                 <div class="mt-2 ml-2">
                     <svg class="c-icon  w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
@@ -113,7 +125,7 @@
                 </div>
             </button >
         </div>
-        <div :class="cssSelectionNutrition" v-if="cssNavBar === 'c-navbar'">
+        <div :class="store.state.cssSelectionNutrition" v-if="cssNavBar === 'c-navbar'">
             <button @click="haddleRoute('nutrition')" class="flex" > 
                 <div class="mt-2  ml-2">
                     <svg class="c-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
@@ -126,7 +138,7 @@
                 </div>
             </button >
         </div>
-        <div :class="cssSelectionChatbot" v-if="cssNavBar === 'c-navbar'">
+        <div :class="store.state.cssSelectionChatbot" v-if="cssNavBar === 'c-navbar'">
             <button @click="haddleRoute('chatbot')" class="flex">
                 <div class="mt-2  ml-2">
                     <svg class="c-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
@@ -138,8 +150,20 @@
                 </div>
             </button >
         </div>
+        <div :class="store.state.cssSelectionFilter" v-if="cssNavBar === 'c-navbar'">
+            <button @click="haddleRoute('filter')" class="flex" > 
+                <div class="mt-2  ml-2">
+                    <svg class="c-icon w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
+                        <path d="M18.75 12.75h1.5a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5zM12 6a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 6zM12 18a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 18zM3.75 6.75h1.5a.75.75 0 100-1.5h-1.5a.75.75 0 000 1.5zM5.25 18.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 010 1.5zM3 12a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 013 12zM9 3.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM12.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM9 15.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
+                    </svg>
+                </div>
+                <div class="mt-2">
+                    Filter
+                </div>
+            </button >
+        </div>
         <div class="c-login mt-[50vh]" v-if="cssNavBar === 'c-navbar'">
-            <div :class="cssSelectionLogin">
+            <div :class="store.state.cssSelectionLogin">
                 <button @click="haddleRoute('login')" class="flex  m-auto pt-2  " >
                     
                     <div class="">

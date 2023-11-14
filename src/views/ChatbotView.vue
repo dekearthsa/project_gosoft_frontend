@@ -12,16 +12,24 @@
     const payloadProfile = ref()
     const isText = ref();
     const arrayText = ref([]);
-    const negativeWord = ref("");
-    const arrayOfNegative = ref([]);
+    // const negativeWord = ref("");
+    // const arrayOfNegative = ref([]);
     const isTyping = ref(false);
 
-    const haddleAddingNegative = () => {
-        arrayOfNegative.value.push(negativeWord.value)
-        negativeWord.value = ""
-        console.log(arrayOfNegative.value)
-    }
+    // const haddleAddingNegative = () => {
+    //     arrayOfNegative.value.push(negativeWord.value)
+    //     negativeWord.value = ""
+    //     console.log(arrayOfNegative.value)
+    // }
 
+    const haddleRouteFilter = () => {
+        store.state.cssSelectionHome = "is-menu-none-select"
+        store.state.cssSelectionNutrition = "is-menu-none-select"
+        store.state.cssSelectionChatbot = "is-menu-none-select"
+        store.state.cssSelectionLogin = "is-menu-none-select"
+        store.state.cssSelectionFilter = "is-menu-selected"
+        router.push({path:"/filter"})
+    }
 
     const haddleAuth = async () => {
         const getToken = await VueCookies.get("setDataGosoft");
@@ -36,7 +44,7 @@
                         }
                     };
                     const auth = await axios.request(config)
-                    console.log(auth.data)
+                    // console.log(auth.data)
                     if (!auth.data.login) {
                         VueCookies.remove("setDataGosoft");
                         router.push({path: "/login"})
@@ -46,7 +54,7 @@
                 router.push({path: "/login"})
             }
         }catch(err){
-            console.log(err)
+            // console.log(err)
             VueCookies.remove("setDataGosoft");
             router.push({path: "/login"})
         }
@@ -67,7 +75,7 @@
             cal_dec: profileData.targetCal?"Y":"N"
             }
             payloadProfile.value = payload
-            console.log(payloadProfile)
+            // console.log(payloadProfile)
         }catch(err){
             router.push({path: "/login"})
         }
@@ -80,10 +88,10 @@
             session_state_responses: [],
             session_state_request: [],
             query: isText.value,
-            filter_ingredient: arrayOfNegative.value,
+            filter_ingredient: store.state.arrayOfNegative,
             user_private_data: payloadProfile.value,
         })
-        console.log(data)
+        // console.log(data)
 
 
         
@@ -131,44 +139,67 @@
 
 <template>
     <div>
-        <div class="c-title m-auto ">
-            <div class="pt-10">
-                Chatbot
+        <div class="mb-10">
+            <div class="c-title m-auto">
+                <div class="pt-10">
+                    Chatbot
+                </div>
             </div>
         </div>
-        <div class="mt-10">
-            <div class="c-box" >
-                <div v-for="(el,idx) in arrayText" :key="idx">
-                    <div class="flex justify-start ml-3 mt-2 w-[50%]">
-                        <div class="ai-bubble text-white">{{el.bot}}</div>
-                    </div>
-                    <div class="">
-                        <div class="flex justify-end mr-3 ">
-                            <div class="text-white  text-right font-bold speech-bubble">{{el.user}}</div>
+        
+        <div class="c-contaniner">
+            <div class="c-container-box">
+                
+                <div class="c-box" >
+                    
+                    <div v-for="(el,idx) in arrayText" :key="idx">
+                        <div class="flex justify-start ml-3 mt-2 w-[50%]">
+                            <div class="ai-bubble text-white">{{el.bot}}</div>
                         </div>
+                        <div class="">
+                            <div class="flex justify-end mr-3 ">
+                                <div class="text-white  text-right font-bold speech-bubble">{{el.user}}</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- <div class="mt-5 text-center">
+                    <input v-model="negativeWord"  list="ingre"  id="ingres" placeholder="Filter ingredient">
+                    <datalist id="ingre">
+                        <option v-for="(el, idx) in store.state.propmt" :key="idx" :value="el">{{el}}</option>
+                    </datalist>
+                    <button  @click="haddleAddingNegative" class="btn-send w-[50px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">add</button>
+                    <div >
+                        <span class="ml-1" v-for="(el, idx) in arrayOfNegative" :key="idx">{{el}}</span>
+                    </div>
+                </div> -->
+                <div class="c-typing">
+                    <div class="">
+                        <input v-if="isTyping === false" v-model="isText" placeholder="tpying message"/>
+                        <div class="flex justify-center mt-5">
+                                <button v-if="isTyping === false" @click="haddleSend" class="btn-send w-[80px] h-[40px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">send</button>
+                            <button class="ml-4" @click="haddleRouteFilter">
+                                <svg v-if="store.state.arrayOfNegative.length === 0" class="w-8 h-8 mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
+                                    <path d="M18.75 12.75h1.5a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5zM12 6a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 6zM12 18a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 18zM3.75 6.75h1.5a.75.75 0 100-1.5h-1.5a.75.75 0 000 1.5zM5.25 18.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 010 1.5zM3 12a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 013 12zM9 3.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM12.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM9 15.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
+                                </svg>
+                                <svg v-if="store.state.arrayOfNegative.length > 0" class="w-8 h-8 mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#E0EA00" >
+                                    <path d="M18.75 12.75h1.5a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5zM12 6a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 6zM12 18a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 18zM3.75 6.75h1.5a.75.75 0 100-1.5h-1.5a.75.75 0 000 1.5zM5.25 18.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 010 1.5zM3 12a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 013 12zM9 3.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM12.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM9 15.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
+                                </svg>
+                            </button>
+                            <span class="ml-1 font-bold">{{store.state.arrayOfNegative.length}}</span>
+                        </div>
+                        
+                        <div class="loader m-auto" v-if="isTyping === true"></div>
                     </div>
                     
                 </div>
-            </div>
-            <div class="mt-5 text-center">
-                <input v-model="negativeWord"  list="ingre"  id="ingres" placeholder="Filter ingredient">
-                <datalist id="ingre">
-                    <option v-for="(el, idx) in store.state.propmt" :key="idx" :value="el">{{el}}</option>
-                </datalist>
-                <button  @click="haddleAddingNegative" class="btn-send w-[50px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">add</button>
-                <div >
-                    <span class="ml-1" v-for="(el, idx) in arrayOfNegative" :key="idx">{{el}}</span>
+                
+                <div class="set-result mt-10" v-if="store.state.isProduct.length !== 0 ">
+                    <button  @click="haddlerShowResult" class="w-[100px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">Result</button>
                 </div>
             </div>
-            <div class="c-typing">
-                <input v-if="isTyping === false" v-model="isText" placeholder="tpying message"/>
-                <button v-if="isTyping === false" @click="haddleSend" class="btn-send w-[50px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">send</button>
-                <div class="loader m-auto" v-if="isTyping === true"></div>
-            </div>
             
-            <div class="set-result mt-10" v-if="store.state.isProduct.length !== 0 ">
-                <button  @click="haddlerShowResult" class="w-[100px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">Result</button>
-            </div>
         </div>
     </div>
 </template>
@@ -176,21 +207,18 @@
 
 <style scoped>
 
-.speech-bubble {
  
+
+.speech-bubble {
 	background: #9b8d59;
 	border-radius: .4em;
 }
-
- 
 
 .ai-bubble {
 	position: relative;
 	background: #00aabb;
 	border-radius: .4em;
 }
- 
-
 
 ::placeholder {
     text-align: center; 
@@ -238,12 +266,15 @@
     .c-bot{
         width: 70%;
     }
-    .c-box{
 
+    .c-container-box{
+        margin-top:40px;
+    }
+    .c-box{ 
         overflow-y: scroll;
         height: 70vh;
         border: 1px solid gray;
-        width: 90%;
+        width: 80%;
         margin: auto;
         border-radius: 10px;
     }

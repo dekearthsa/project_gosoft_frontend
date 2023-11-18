@@ -58,7 +58,7 @@ body{
 .c-view-p{
   height: 100vh;
   overflow-y: scroll;
-  background: rgb(255,255,255);
-  background: linear-gradient(162deg, rgba(255,255,255,1) 60%, rgba(151,205,255,1) 81%, rgba(85,117,145,1) 90%, rgba(68,95,122,1) 100%);
+  background: rgb(250,250,250);
+  background: linear-gradient(169deg, rgba(250,250,250,1) 25%, rgba(255,246,228,1) 51%, rgba(255,182,58,1) 77%, rgba(255,139,0,1) 100%);
 }
 </style>

@@ -1,7 +1,9 @@
 <script setup>
-import {ref }from "vue";
+import {ref, onMounted }from "vue";
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'; 
+import VueCookies from 'vue-cookies';
+import axios from "axios";
 
 const store = useStore();
 const router = useRouter();
@@ -30,6 +32,55 @@ const negativeWord = ref("");
     const haddleRemoveNegative = () => {
         store.state.arrayOfNegative.pop()
     }
+
+    const haddleAuth = async () => {
+        const getToken = await VueCookies.get("setDataGosoft");
+        // console.log(getToken.token)
+        try{
+            if(getToken.token){
+                    let config = {
+                        method: 'get',
+                        url: 'https://service-register-login-nya5fszoda-as.a.run.app/api/check/auth',
+                        headers: { 
+                            "Authorization": getToken.token
+                        }
+                    };
+                    const auth = await axios.request(config)
+                    console.log(auth.data)
+                    // console.log(auth.data)
+                    if (!auth.data.login) {
+                        store.state.cssSelectionHome = "is-menu-none-select"
+                        store.state.cssSelectionNutrition = "is-menu-none-select"
+                        store.state.cssSelectionChatbot = "is-menu-none-select"
+                        store.state.cssSelectionLogin = "is-menu-selected"
+                        store.state.cssSelectionFilter = "is-menu-none-select"
+                        VueCookies.remove("setDataGosoft");
+                        router.push({path: "/login"})
+                    }
+            }else{
+                store.state.cssSelectionHome = "is-menu-none-select"
+                store.state.cssSelectionNutrition = "is-menu-none-select"
+                store.state.cssSelectionChatbot = "is-menu-none-select"
+                store.state.cssSelectionLogin = "is-menu-selected"
+                store.state.cssSelectionFilter = "is-menu-none-select"
+                VueCookies.remove("setDataGosoft");
+                router.push({path: "/login"})
+            }
+        }catch(err){
+            // console.log(err)
+            store.state.cssSelectionHome = "is-menu-none-select"
+            store.state.cssSelectionNutrition = "is-menu-none-select"
+            store.state.cssSelectionChatbot = "is-menu-none-select"
+            store.state.cssSelectionLogin = "is-menu-selected"
+            store.state.cssSelectionFilter = "is-menu-none-select"
+            VueCookies.remove("setDataGosoft");
+            router.push({path: "/login"})
+        }
+    }
+
+    onMounted(() => {
+        haddleAuth();
+    })
 
 </script>
 
@@ -113,7 +164,7 @@ const negativeWord = ref("");
     text-align: center;
     color: white;
     height: 90px;
-    background: rgb(39, 45, 56);
+    background: #522206;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;

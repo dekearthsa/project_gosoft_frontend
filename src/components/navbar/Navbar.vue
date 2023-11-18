@@ -99,7 +99,7 @@
 </script>
 
 <template>
-    <div :class="cssNavBar" class="bg-gray-800 font-bold text-white">
+    <div :class="cssNavBar" class="is-navbar font-bold text-white">
         <div class="flex justify-end mb-5">
             <button class="mr-1 mt-1" v-if="cssNavBar === 'c-navbar'" @click="haddleCloseBar('close')">
                 <svg class=" w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ffffff" >
@@ -181,9 +181,12 @@
 </template>
 
 <style scoped>
+.is-navbar{
+    background: #522206;
+}
 
 .is-menu-selected{
-    background: rgb(104, 137, 184);
+    background: rgb(255, 200, 167);
     height: 40px;
     margin-left: 15px;
     margin-top: 30px;
@@ -193,7 +196,7 @@
 }
 
 .is-menu-none-select{
-    background: rgb(31, 41, 54);
+    background: #522206;
     height: 40px;
     margin-left: 15px;
     margin-top: 30px;

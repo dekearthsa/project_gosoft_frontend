@@ -46,15 +46,30 @@
                     const auth = await axios.request(config)
                     // console.log(auth.data)
                     if (!auth.data.login) {
+                        store.state.cssSelectionHome = "is-menu-none-select"
+                        store.state.cssSelectionNutrition = "is-menu-none-select"
+                        store.state.cssSelectionChatbot = "is-menu-none-select"
+                        store.state.cssSelectionLogin = "is-menu-selected"
+                        store.state.cssSelectionFilter = "is-menu-none-select"
                         VueCookies.remove("setDataGosoft");
                         router.push({path: "/login"})
                     }
             }else{
+                store.state.cssSelectionHome = "is-menu-none-select"
+            store.state.cssSelectionNutrition = "is-menu-none-select"
+            store.state.cssSelectionChatbot = "is-menu-none-select"
+            store.state.cssSelectionLogin = "is-menu-selected"
+            store.state.cssSelectionFilter = "is-menu-none-select"
                 VueCookies.remove("setDataGosoft");
                 router.push({path: "/login"})
             }
         }catch(err){
             // console.log(err)
+            store.state.cssSelectionHome = "is-menu-none-select"
+            store.state.cssSelectionNutrition = "is-menu-none-select"
+            store.state.cssSelectionChatbot = "is-menu-none-select"
+            store.state.cssSelectionLogin = "is-menu-selected"
+            store.state.cssSelectionFilter = "is-menu-none-select"
             VueCookies.remove("setDataGosoft");
             router.push({path: "/login"})
         }
@@ -91,7 +106,7 @@
             filter_ingredient: store.state.arrayOfNegative,
             user_private_data: payloadProfile.value,
         })
-        // console.log(data)
+        console.log(data)
 
 
         
@@ -161,7 +176,6 @@
                                 <div class="text-white  text-right font-bold speech-bubble">{{el.user}}</div>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 <!-- <div class="mt-5 text-center">
@@ -169,35 +183,40 @@
                     <datalist id="ingre">
                         <option v-for="(el, idx) in store.state.propmt" :key="idx" :value="el">{{el}}</option>
                     </datalist>
-                    <button  @click="haddleAddingNegative" class="btn-send w-[50px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">add</button>
+                    <button  @click="haddleAddingNegative" class="btn-send w-[50px] border-[1px] border-gray-600 bg-amber-700 text-white rounded-md">add</button>
                     <div >
                         <span class="ml-1" v-for="(el, idx) in arrayOfNegative" :key="idx">{{el}}</span>
                     </div>
                 </div> -->
-                <div class="c-typing">
-                    <div class="">
-                        <input v-if="isTyping === false" v-model="isText" placeholder="tpying message"/>
-                        <div class="flex justify-center mt-5">
-                                <button v-if="isTyping === false" @click="haddleSend" class="btn-send w-[80px] h-[40px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">send</button>
-                            <button class="ml-4" @click="haddleRouteFilter">
-                                <svg v-if="store.state.arrayOfNegative.length === 0" class="w-8 h-8 mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
-                                    <path d="M18.75 12.75h1.5a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5zM12 6a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 6zM12 18a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 18zM3.75 6.75h1.5a.75.75 0 100-1.5h-1.5a.75.75 0 000 1.5zM5.25 18.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 010 1.5zM3 12a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 013 12zM9 3.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM12.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM9 15.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
-                                </svg>
-                                <svg v-if="store.state.arrayOfNegative.length > 0" class="w-8 h-8 mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#E0EA00" >
-                                    <path d="M18.75 12.75h1.5a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5zM12 6a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 6zM12 18a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 18zM3.75 6.75h1.5a.75.75 0 100-1.5h-1.5a.75.75 0 000 1.5zM5.25 18.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 010 1.5zM3 12a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 013 12zM9 3.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM12.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM9 15.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
-                                </svg>
-                            </button>
-                            <span class="ml-1 font-bold">{{store.state.arrayOfNegative.length}}</span>
+                <div class="">
+                    <div class="c-typing">
+                        <div class="">
+                            <input v-if="isTyping === false" v-model="isText" placeholder="your message here."/>
+                            <div class="flex justify-center mt-5">
+                                <button v-if="isTyping === false" @click="haddleSend" class="btn-send w-[80px] h-[40px]  bg-amber-700 text-white rounded-md">send</button>
+                                <button v-if="isTyping === false" class="ml-4" @click="haddleRouteFilter">
+                                    <svg v-if="store.state.arrayOfNegative.length === 0" class="w-8 h-8 mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
+                                        <path d="M18.75 12.75h1.5a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5zM12 6a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 6zM12 18a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 18zM3.75 6.75h1.5a.75.75 0 100-1.5h-1.5a.75.75 0 000 1.5zM5.25 18.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 010 1.5zM3 12a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 013 12zM9 3.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM12.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM9 15.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
+                                    </svg>
+                                    <svg v-if="store.state.arrayOfNegative.length > 0" class="w-8 h-8 mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#E0EA00" >
+                                        <path d="M18.75 12.75h1.5a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5zM12 6a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 6zM12 18a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 18zM3.75 6.75h1.5a.75.75 0 100-1.5h-1.5a.75.75 0 000 1.5zM5.25 18.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 010 1.5zM3 12a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 013 12zM9 3.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM12.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM9 15.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
+                                    </svg>
+                                </button>
+
+                                <span v-if="isTyping === false" class="ml-1 font-bold">{{store.state.arrayOfNegative.length}}</span>
+                                <div class="set-result ml-3" v-if="store.state.isProduct.length !== 0 ">
+                                    <button  @click="haddlerShowResult" class="w-[80px] border-[1px] h-[40px]  bg-amber-700 text-white rounded-md">Result</button>
+                                </div>
+                            </div>
+                            <div class="loader m-auto" v-if="isTyping === true"></div>
+                            
                         </div>
-                        
-                        <div class="loader m-auto" v-if="isTyping === true"></div>
                     </div>
+                    
                     
                 </div>
                 
-                <div class="set-result mt-10" v-if="store.state.isProduct.length !== 0 ">
-                    <button  @click="haddlerShowResult" class="w-[100px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">Result</button>
-                </div>
+                
             </div>
             
         </div>
@@ -258,7 +277,7 @@
         text-align: center;
         color: white;
         height: 90px;
-        background: rgb(39, 45, 56);
+        background: #522206;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
@@ -304,7 +323,7 @@
 
 @media not all and (min-width: 768px){
     .c-title{
-        background: rgb(39, 45, 56);
+        background: #522206;
         width: 90%;
         font-size: 14px;
         font-weight: bold;

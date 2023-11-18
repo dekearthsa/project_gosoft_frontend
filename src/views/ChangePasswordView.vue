@@ -85,11 +85,11 @@
                 <input v-model="conPassword"  type="password" class="w-[200px] border-[1px] border-gray-400 rounded-md"/>
             </div>
         </div>
-        <div class="flex justify-around">
-            <div>
+        <div class="flex">
+            <div class="">
                 <button @click="haddleBack" class="mt-10 w-[100px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">Back</button>
             </div>
-            <div>
+            <div class="ml-3">
                 <button @click="haddleSubmit" class="mt-10 w-[100px] border-[1px] border-gray-600 bg-gray-600 text-white rounded-md">Submit</button>
             </div>
         </div>

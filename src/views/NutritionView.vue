@@ -17,25 +17,43 @@
 
     const haddleAuth = async () => {
         const getToken = await VueCookies.get("setDataGosoft");
-        // console.log(getToken.token)
+        
         try{
             if(getToken.token){
-                const headerConfig = {
-                    headers: {
-                        Authorization: getToken.token
-                    }
-                }
-                const auth = await axios.get(store.state.checkAuthURL, headerConfig)
-                // console.log(auth.data)
-                if (!auth.data.login) {
-                        VueCookies.remove("setDataGosoft",haddleLogin.data.token);
+                    let config = {
+                        method: 'get',
+                        url: 'https://service-register-login-nya5fszoda-as.a.run.app/api/check/auth',
+                        headers: { 
+                            "Authorization": getToken.token
+                        }
+                    };
+                    const auth = await axios.request(config)
+                    // console.log(auth.data)
+                    if (!auth.data.login) {
+                        store.state.cssSelectionHome = "is-menu-none-select"
+                        store.state.cssSelectionNutrition = "is-menu-none-select"
+                        store.state.cssSelectionChatbot = "is-menu-none-select"
+                        store.state.cssSelectionLogin = "is-menu-selected"
+                        store.state.cssSelectionFilter = "is-menu-none-select"
+                        VueCookies.remove("setDataGosoft");
                         router.push({path: "/login"})
                     }
             }else{
+                store.state.cssSelectionHome = "is-menu-none-select"
+                store.state.cssSelectionNutrition = "is-menu-none-select"
+                store.state.cssSelectionChatbot = "is-menu-none-select"
+                store.state.cssSelectionLogin = "is-menu-selected"
+                store.state.cssSelectionFilter = "is-menu-none-select"
+                VueCookies.remove("setDataGosoft");
                 router.push({path: "/login"})
             }
         }catch(err){
-            console.log(err)
+            // console.log(err)
+            store.state.cssSelectionHome = "is-menu-none-select"
+            store.state.cssSelectionNutrition = "is-menu-none-select"
+            store.state.cssSelectionChatbot = "is-menu-none-select"
+            store.state.cssSelectionLogin = "is-menu-selected"
+            store.state.cssSelectionFilter = "is-menu-none-select"
             VueCookies.remove("setDataGosoft");
             router.push({path: "/login"})
         }
@@ -128,11 +146,11 @@
                 </div>
                 <div class="c-btn-send mt-10 m-auto text-center">
                     <div>
-                        <button @click="haddleSendImg" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold">Send</button>
+                        <button @click="haddleSendImg" class="  w-[120px] h-[4vh] rounded-md bg-amber-700 text-white font-bold">Send</button>
                     </div>
                     
                     <div class="c-desc" v-if="isResult === true">
-                            <button @click="haddleOpenPopup" class="border-[1px] border-gray-600 w-[120px] h-[4vh] rounded-md bg-gray-700 text-white font-bold ">Result</button>
+                            <button @click="haddleOpenPopup" class="  w-[120px] h-[4vh] rounded-md bg-amber-700 text-white font-bold ">Result</button>
                     </div>
                 </div>
             </div>
@@ -167,7 +185,7 @@
         font-weight: bold;
         text-align: center;
         color: white;
-        background: rgb(39, 45, 56);
+        background: #522206;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
@@ -197,7 +215,7 @@
         display: none;
     }
     .custom-file-upload {
-        border: 1px solid #ccc;
+        border: 1px solid #838383;
         display: flex;
         justify-content: center;
         width: 400px;
@@ -220,7 +238,7 @@
         font-weight: bold;
         text-align: center;
         color: white;
-        background: rgb(39, 45, 56);
+        background: #522206;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
